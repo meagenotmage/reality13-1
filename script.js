@@ -106,14 +106,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const track = setupInfiniteRotation();
     startContinuousRotation(track);
 
-
-    // === FAQ SECTION ===
-    const questions = document.querySelectorAll('.faq-question');
-    questions.forEach(q => {
-        q.addEventListener('click', () => {
-            const answer = q.nextElementSibling;
-            q.classList.toggle('active');
-            answer.classList.toggle('show');
+    // == NAV BAR HAMBURGER MENU ==
+    function setupHamburgerMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('show');
         });
-    });
+    }
+
+    // Initialize and set up interval updates
+    function init() {
+        renderSchedule();
+        updateCurrentSession();
+        setupHamburgerMenu();
+        
+        // Set up scroll to current button
+        document.getElementById('scroll-to-current').addEventListener('click', scrollToCurrentSession);
+        
+        // Set up next session button
+        setupNextSessionButton();
+        
+        // Update every minute
+        setInterval(() => {
+            updateCurrentSession();
+        }, 60000);
+        
+        // Initial scroll to current session after a short delay
+        setTimeout(scrollToCurrentSession, 1000);
+    }
 });
