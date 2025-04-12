@@ -12,15 +12,15 @@
 
         /* Root variables for consistent color scheme */
         :root {
-            --primary: #7c3aed;
-            --primary-light: #d69ff2;
-            --primary-dark: #6025c0;
-            --dark: #0e0e14;
-            --light: #f5f7fa;
-            --gray: #666;
-            --white: #fff;
-            --gradient: linear-gradient(to right, #30408e,  #bd61ea,   #d69ff2, #e8c9f8);
-        }
+        --primary: #ab42e8;
+        --primary-light: #d69ff2;
+        --primary-dark: #8a35b9;
+        --dark: #0e0e14;
+        --light: #ededf1;
+        --gray: #666;
+        --white: #eaeaea;
+        --gradient: linear-gradient(to right, #30408e,  #bd61ea,   #d69ff2);
+    }
 
         * {
             margin: 0;
@@ -46,80 +46,83 @@
 
         /* Header Styles */
         header {
-            padding: 15px 0;
-            background-color: var(--light);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
+        padding: 15px 0;
+        background-color: var(--light);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo-png {
-            width: 40px;
-            height: auto;
-        }
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--dark);
-        }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        .logo span {
-            color: var(--primary);
-        }
+    .logo-png {
+        width: 40px;
+        height: auto;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
+    .logo {
+        font-family: 'Poppins', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--dark);
+    }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            text-transform: uppercase;
-            font-size: 14px;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
+    .logo span {
+        color: var(--primary);
+    }
 
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        .nav-links a.active-s {
-            color: var(--primary);
-        }
+    .nav-links {
+        display: flex;
+        gap: 30px;
+    }
 
-        .nav-links a.active-s::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--primary);
-        }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--dark);
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 500;
+        position: relative;
+        transition: color 0.3s ease;
+    }
 
-        .hamburger {
-            display: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--primary);
-        }
+    .nav-links a:hover {
+        color: var(--primary);
+    }
+
+    .nav-links a.active-s {
+        color: var(--primary);
+    }
+
+    .nav-links a.active-s::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary);
+    }
+
+    .hamburger {
+        display: none;
+        font-size: 2rem;
+        cursor: pointer;
+        color: var(--primary);
+    }
+
 
         /* Main Content */
         main {
@@ -130,7 +133,7 @@
 
         .program-header {
             background: var(--gradient);
-            color: var(--white);
+            color: white;
             padding: 40px 0;
             text-align: center;
         }
@@ -250,6 +253,11 @@
             margin-bottom: 0.25rem;
         }
 
+        .schedule-item.upcoming {
+        border-left: 4px solid var(--primary-dark);
+        background-color: rgba(207, 193, 193, 0.295);
+    }
+
         .active {
             background: #f0e7ff;
             border-left: 5px solid var(--primary);
@@ -258,6 +266,21 @@
         .completed {
             opacity: 0.7;
         }
+
+        #next-session {
+            background: linear-gradient(135deg, #b0b0b0, #808080); /* A subtle gray gradient */
+            color: var(--white); /* Keeps the text color white */
+        }
+
+        #next-session:hover {
+            background: linear-gradient(135deg, #999999, #666666); /* Darker gray gradient on hover */
+            color: var(--white); /* Keeps the text color white */
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(128, 128, 128, 0.4); /* Gray shadow to match the gradient */
+        }
+
+
+
 
         /* Footer */
         footer {
@@ -419,9 +442,7 @@
                     <a href="index.html">Home</a>
                     <a href="program.html" class="active-s">Program</a>
                     <a href="#">Contests</a>
-                    <a href="#">Speakers</a>
-                    <a href="#">Sponsors</a>
-                    <a href="#">FAQs</a>
+                    <a href="faq.html">FAQs</a>
                 </div>
                 <div class="hamburger" id="hamburger">
                     <i class="fas fa-bars"></i>
@@ -434,8 +455,8 @@
     <main>
         <div class="program-header">
             <div class="container">
-                <h1>RealITY XIII: Metropolis Program Flow</h1>
-                <p>Stay updated with our real-time program flow</p>
+                <h1>RealITy XIII: Metropolis Program Flow</h1>
+                <p>Stay updated with our real-time program flow!</p>
             </div>
         </div>
 
@@ -757,30 +778,133 @@
             }
         }
 
-        // Function to scroll to current session
-        function scrollToCurrentSession() {
-            const currentIndex = getCurrentEventIndex();
-            const currentItem = document.getElementById(`item-${schedule[currentIndex].id}`);
+        function updateCurrentSession() {
+    const now = new Date();
+    const currentTimeElement = document.getElementById('current-time');
+    const currentEventElement = document.getElementById('current-event');
+    const timeLeftElement = document.getElementById('time-left');
+    
+    // Format current time
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    
+    currentTimeElement.textContent = `Current Time: ${formattedHours}:${minutes} ${ampm}`;
+    
+    // Calculate days until May 8, 2025
+    const eventDate = new Date(2025, 4, 8); // May is month 4 (zero-indexed)
+    const timeDifference = eventDate.getTime() - now.getTime();
+    const daysUntilEvent = Math.ceil(timeDifference / (1000 * 3600 * 24));
+    
+    // Check if event is in the future, today, or in the past
+    if (daysUntilEvent > 1) {
+        // Changed this line to directly show the days count instead of "Event Countdown"
+        currentEventElement.textContent = `${daysUntilEvent} days`;
+        timeLeftElement.textContent = `until the event on May 8, 2025`;
+        
+        // No active session yet, but we can highlight the first item to show what's coming
+        document.querySelectorAll('.schedule-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        const firstItem = document.getElementById('item-1');
+        if (firstItem) {
+            firstItem.classList.add('upcoming');
+        }
+        return;
+    }
+    
+    // If it's May 8th (event day), proceed with the regular schedule functionality
+    if (daysUntilEvent === 1 || daysUntilEvent === 0) {
+        // Event is today
+        if (daysUntilEvent === 1) {
+            currentEventElement.textContent = "1 day";
+            timeLeftElement.textContent = "until the event on May 8, 2025";
+        } else {
+            // Find current event
+            let currentEvent = null;
             
-            if (currentItem) {
-                currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            for (let i = 0; i < schedule.length; i++) {
+                const item = schedule[i];
+                const startTime = timeToDate(item.timeStart);
+                const endTime = timeToDate(item.timeEnd);
+                
+                if (now >= startTime && now < endTime) {
+                    currentEvent = item;
+                    break;
+                }
+            }
+            
+            // Update active class on all items
+            document.querySelectorAll('.schedule-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (currentEvent) {
+                currentEventElement.textContent = currentEvent.title;
+                
+                // Calculate time remaining
+                const endTime = timeToDate(currentEvent.timeEnd);
+                const timeRemaining = endTime - now;
+                
+                const minutesRemaining = Math.floor(timeRemaining / (1000 * 60));
+                const hoursRemaining = Math.floor(minutesRemaining / 60);
+                const remainingMinutes = minutesRemaining % 60;
+                
+                if (hoursRemaining > 0) {
+                    timeLeftElement.textContent = `Time Remaining: ${hoursRemaining}h ${remainingMinutes}m until next session`;
+                } else {
+                    timeLeftElement.textContent = `Time Remaining: ${remainingMinutes}m until next session`;
+                }
+                
+                // Highlight active session
+                const activeItem = document.getElementById(`item-${currentEvent.id}`);
+                if (activeItem) {
+                    activeItem.classList.add('active');
+                }
+            } else {
+                // Check if before first event
+                const firstEvent = schedule[0];
+                const firstEventStart = timeToDate(firstEvent.timeStart);
+                
+                if (now < firstEventStart) {
+                    currentEventElement.textContent = "Event starts today!";
+                    
+                    const timeUntilStart = firstEventStart - now;
+                    const minutesUntilStart = Math.floor(timeUntilStart / (1000 * 60));
+                    const hoursUntilStart = Math.floor(minutesUntilStart / 60);
+                    const remainingMinutes = minutesUntilStart % 60;
+                    
+                    if (hoursUntilStart > 0) {
+                        timeLeftElement.textContent = `Starting in: ${hoursUntilStart}h ${remainingMinutes}m`;
+                    } else {
+                        timeLeftElement.textContent = `Starting in: ${remainingMinutes}m`;
+                    }
+                    
+                    // Highlight first item
+                    const firstItem = document.getElementById(`item-1`);
+                    if (firstItem) {
+                        firstItem.classList.add('active');
+                    }
+                } else {
+                    // After last event
+                    currentEventElement.textContent = "Event has concluded";
+                    timeLeftElement.textContent = "Thank you for participating!";
+                    
+                    // Highlight last item
+                    const lastItem = document.getElementById(`item-${schedule.length}`);
+                    if (lastItem) {
+                        lastItem.classList.add('active');
+                    }
+                }
             }
         }
-
-        // Handle next session button
-        function setupNextSessionButton() {
-            const nextButton = document.getElementById('next-session');
-            
-            nextButton.addEventListener('click', function() {
-                const currentIndex = getCurrentEventIndex();
-                const nextIndex = (currentIndex + 1) % schedule.length;
-                
-                const nextItem = document.getElementById(`item-${schedule[nextIndex].id}`);
-                if (nextItem) {
-                    nextItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            });
-        }
+    } else {
+        // Event has passed
+        currentEventElement.textContent = "Event has concluded";
+        timeLeftElement.textContent = "The event took place on May 8, 2025";
+    }
+}
 
         // Toggle hamburger menu
         function setupHamburgerMenu() {

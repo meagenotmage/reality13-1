@@ -72,6 +72,9 @@ const schedule = [
     }
 ];
 
+// Set the event date - May 8, 2025
+const eventDate = new Date(2025, 4, 8); // Month is 0-based in JavaScript (4 = May)
+
 // Function to format time from 24-hour to 12-hour format
 function formatTime(time) {
     const [hours, minutes] = time.split(':');
@@ -82,24 +85,54 @@ function formatTime(time) {
 }
 
 // Function to convert time string to Date object
-function timeToDate(timeStr) {
-    const today = new Date();
+function timeToDate(timeStr, baseDate) {
+    const date = new Date(baseDate);
     const [hours, minutes] = timeStr.split(':');
     
-    today.setHours(parseInt(hours));
-    today.setMinutes(parseInt(minutes));
-    today.setSeconds(0);
+    date.setHours(parseInt(hours));
+    date.setMinutes(parseInt(minutes));
+    date.setSeconds(0);
     
-    return today;
+    return date;
+}
+
+// Calculate days remaining until the event
+function getDaysUntilEvent() {
+    const now = new Date();
+    
+    // Reset time part of current date to compare just dates
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    
+    const diffTime = eventDay - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    return diffDays;
+}
+
+// Check if the event is happening today
+function isEventToday() {
+    const now = new Date();
+    return now.getFullYear() === eventDate.getFullYear() && 
+           now.getMonth() === eventDate.getMonth() && 
+           now.getDate() === eventDate.getDate();
+}
+
+// Check if the event has already passed
+function isEventPassed() {
+    const now = new Date();
+    return now > eventDate;
 }
 
 // Find current event index
 function getCurrentEventIndex() {
+    if (!isEventToday()) return -1;
+    
     const now = new Date();
     
     for (let i = 0; i < schedule.length; i++) {
-        const startTime = timeToDate(schedule[i].timeStart);
-        const endTime = timeToDate(schedule[i].timeEnd);
+        const startTime = timeToDate(schedule[i].timeStart, eventDate);
+        const endTime = timeToDate(schedule[i].timeEnd, eventDate);
         
         if (now >= startTime && now < endTime) {
             return i;
@@ -107,7 +140,7 @@ function getCurrentEventIndex() {
     }
     
     // If current time is before first event
-    if (now < timeToDate(schedule[0].timeStart)) {
+    if (now < timeToDate(schedule[0].timeStart, eventDate)) {
         return 0;
     }
     
@@ -123,11 +156,19 @@ function renderSchedule() {
     const now = new Date();
     
     schedule.forEach(item => {
-        const startTime = timeToDate(item.timeStart);
-        const endTime = timeToDate(item.timeEnd);
+        // Only calculate active/completed status if event is today
+        let isActive = false;
+        let isCompleted = false;
         
-        const isActive = now >= startTime && now < endTime;
-        const isCompleted = now > endTime;
+        if (isEventToday()) {
+            const startTime = timeToDate(item.timeStart, eventDate);
+            const endTime = timeToDate(item.timeEnd, eventDate);
+            
+            isActive = now >= startTime && now < endTime;
+            isCompleted = now > endTime;
+        } else if (isEventPassed()) {
+            isCompleted = true;
+        }
         
         const scheduleItem = document.createElement('div');
         scheduleItem.className = `schedule-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
@@ -164,14 +205,44 @@ function updateCurrentSession() {
     
     currentTimeElement.textContent = `Current Time: ${formattedHours}:${minutes} ${ampm}`;
     
+    // Check if we're on event day, before, or after
+    if (!isEventToday()) {
+        if (isEventPassed()) {
+            // Event has passed
+            currentEventElement.textContent = "Event has concluded";
+            timeLeftElement.textContent = "Thank you for participating!";
+            
+            // Mark all items as completed
+            document.querySelectorAll('.schedule-item').forEach(item => {
+                item.classList.add('completed');
+            });
+        } else {
+            // Event is in the future
+            const daysRemaining = getDaysUntilEvent();
+            
+            if (daysRemaining === 1) {
+                currentEventElement.textContent = "Event starts tomorrow!";
+            } else {
+                currentEventElement.textContent = `Event starts in ${daysRemaining} days`;
+            }
+            
+            // Format the event date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = eventDate.toLocaleDateString(undefined, options);
+            timeLeftElement.textContent = `Mark your calendar: ${formattedDate}`;
+        }
+        return;
+    }
+    
+    // If we're on event day, continue with real-time tracking
     // Find current event
     let currentEvent = null;
     let currentEventIndex = -1;
     
     for (let i = 0; i < schedule.length; i++) {
         const item = schedule[i];
-        const startTime = timeToDate(item.timeStart);
-        const endTime = timeToDate(item.timeEnd);
+        const startTime = timeToDate(item.timeStart, eventDate);
+        const endTime = timeToDate(item.timeEnd, eventDate);
         
         if (now >= startTime && now < endTime) {
             currentEvent = item;
@@ -189,7 +260,7 @@ function updateCurrentSession() {
         currentEventElement.textContent = currentEvent.title;
         
         // Calculate time remaining
-        const endTime = timeToDate(currentEvent.timeEnd);
+        const endTime = timeToDate(currentEvent.timeEnd, eventDate);
         const timeRemaining = endTime - now;
         
         const minutesRemaining = Math.floor(timeRemaining / (1000 * 60));
@@ -210,10 +281,10 @@ function updateCurrentSession() {
     } else {
         // Check if before first event
         const firstEvent = schedule[0];
-        const firstEventStart = timeToDate(firstEvent.timeStart);
+        const firstEventStart = timeToDate(firstEvent.timeStart, eventDate);
         
         if (now < firstEventStart) {
-            currentEventElement.textContent = "Event hasn't started yet";
+            currentEventElement.textContent = "Event starts today!";
             
             const timeUntilStart = firstEventStart - now;
             const minutesUntilStart = Math.floor(timeUntilStart / (1000 * 60));
@@ -247,7 +318,12 @@ function updateCurrentSession() {
 
 // Function to scroll to current session
 function scrollToCurrentSession() {
+    // Only scroll if it's event day
+    if (!isEventToday()) return;
+    
     const currentIndex = getCurrentEventIndex();
+    if (currentIndex === -1) return;
+    
     const currentItem = document.getElementById(`item-${schedule[currentIndex].id}`);
     
     if (currentItem) {
@@ -261,7 +337,11 @@ function setupNextSessionButton() {
     const nextButton = document.getElementById('next-session');
     
     nextButton.addEventListener('click', function() {
+        if (!isEventToday()) return;
+        
         const currentIndex = getCurrentEventIndex();
+        if (currentIndex === -1) return;
+        
         const nextIndex = (currentIndex + 1) % schedule.length;
         
         const nextItem = document.getElementById(`item-${schedule[nextIndex].id}`);
@@ -271,10 +351,41 @@ function setupNextSessionButton() {
     });
 }
 
+// Function to add countdown banner
+function addCountdownBanner() {
+    if (isEventToday() || isEventPassed()) return;
+    
+    const daysRemaining = getDaysUntilEvent();
+    const banner = document.createElement('div');
+    banner.className = 'countdown-banner';
+    
+    // Format the event date
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = eventDate.toLocaleDateString(undefined, options);
+    
+    banner.innerHTML = `
+        <div class="countdown-content">
+            <h2>Event Countdown</h2>
+            <div class="countdown-timer">
+                <div class="countdown-days">${daysRemaining}</div>
+                <div class="countdown-label">day${daysRemaining !== 1 ? 's' : ''} remaining</div>
+            </div>
+            <div class="countdown-date">
+                Event Date: ${formattedDate}
+            </div>
+        </div>
+    `;
+    
+    // Insert at the top of the container
+    const container = document.querySelector('.container') || document.body;
+    container.insertBefore(banner, container.firstChild);
+}
+
 // Initialize and set up interval updates
 function init() {
     renderSchedule();
     updateCurrentSession();
+    addCountdownBanner();
     
     // Set up scroll to current button
     document.getElementById('scroll-to-current').addEventListener('click', scrollToCurrentSession);
@@ -287,8 +398,23 @@ function init() {
         updateCurrentSession();
     }, 60000);
     
-    // Initial scroll to current session after a short delay
-    setTimeout(scrollToCurrentSession, 1000);
+    // Update countdown daily at midnight
+    const updateCountdownInterval = setInterval(() => {
+        const now = new Date();
+        if (now.getHours() === 0 && now.getMinutes() === 0) {
+            // Remove old banner
+            const oldBanner = document.querySelector('.countdown-banner');
+            if (oldBanner) oldBanner.remove();
+            
+            // Add new banner with updated countdown
+            addCountdownBanner();
+        }
+    }, 60000);
+    
+    // Initial scroll to current session after a short delay if it's event day
+    if (isEventToday()) {
+        setTimeout(scrollToCurrentSession, 1000);
+    }
 }
 
 // Start when page loads
