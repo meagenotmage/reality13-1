@@ -164,15 +164,16 @@ nav {
 /* Inactive tab override */
 .faq-category-tab.inactive {
     background: linear-gradient(to right, #a0a0a0, #707070); /* Grey gradient */
-    color: #f1f1f1;
+    color: rgb(188, 184, 184);
 }
 
 /* Active tab styling */
 .faq-category-tab.active {
-    background: linear-gradient(to right, #3b2eb3, #ea9cff); /* Purple gradient */
-    color: white;
-    box-shadow: 0 8px 25px rgba(150, 100, 255, 0.6); /* Purple-ish glow */
+    background: linear-gradient(to right, #3b2eb3, #ea9cff);
+    color: white; /* Change this from var(--gray) */
+    box-shadow: 0 8px 25px rgba(150, 100, 255, 0.6);
 }
+
 
 /* Optional hover effect */
 .faq-category-tab:hover {
@@ -352,7 +353,7 @@ footer {
 }
 
 .footer-logo {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 15px;
