@@ -1543,29 +1543,30 @@ html {
 
 .section-header-rules {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem; /* Reduced from 2rem */
     position: relative;
     padding-top: 0.5rem;
 }
 
 @media (min-width: 768px) {
     .section-header-rules {
-        margin-bottom: 3rem;
-        padding-top: 1rem;
+        margin-bottom: 1.5rem; /* Reduced from 3rem */
+        padding-top: 0.5rem; /* Reduced from 1rem */
     }
 }
 
 .section-header-below {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem; /* Reduced from 2rem */
+    margin-top: 0.5rem; /* Added to create spacing between accordions */
     position: relative;
-    padding-top: 0.5rem;
+    padding-top: 0;
 }
 
 @media (min-width: 768px) {
     .section-header-below {
-        margin-bottom: 3rem;
-        padding-top: 1rem;
+        margin-bottom: 0.5rem; /* Reduced from 3rem */
+        padding-top: 0;
     }
 }
 
@@ -1590,19 +1591,20 @@ html {
     box-shadow: var(--shadow);
     transition: var(--transition);
     background-color: var(--white);
+    margin-bottom: 0.5rem; /* Added spacing between accordion items */
 }
 
 .accordion-header {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 0.75rem 1rem; /* Reduced vertical padding */
     cursor: pointer;
     transition: var(--transition);
 }
 
 @media (min-width: 768px) {
     .accordion-header {
-        padding: 1.5rem;
+        padding: 1rem 1.5rem; /* Reduced from 1.5rem */
     }
 }
 
@@ -1627,10 +1629,12 @@ html {
 .accordion-header h3 {
     flex: 1;
     margin-bottom: 0;
+    margin-top: 0; /* Added to ensure no extra spacing */
     font-size: clamp(1rem, 2vw, 1.2rem);
     color: var(--text-dark);
     word-wrap: break-word;
     padding-right: 0.5rem;
+    line-height: 1.3; /* Added for better text readability */
 }
 
 .accordion-icon {
@@ -1662,7 +1666,7 @@ html {
 
 .accordion-item.active .accordion-content {
     max-height: 1000px; /* Increased to accommodate more content on smaller screens */
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem; /* Reduced from 1.5rem */
 }
 
 /* Force text color on all elements inside active accordion */
@@ -1686,18 +1690,19 @@ html {
 .accordion-content p,
 .accordion-content ul,
 .accordion-content ol {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
+    margin-top: 0.75rem; /* Added to ensure better spacing */
 }
 
 .accordion-content ul,
 .accordion-content ol {
-    padding-left: 1.25rem;
+    padding-left: 1rem; /* Reduced from 1.25rem */
 }
 
 @media (min-width: 768px) {
     .accordion-content ul,
     .accordion-content ol {
-        padding-left: 2rem;
+        padding-left: 1.5rem; /* Reduced from 2rem */
     }
 }
 
@@ -1705,12 +1710,15 @@ html {
 .rules-list {
     list-style-type: none;
     padding-left: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .rules-list li {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem; /* Reduced from 0.75rem */
     position: relative;
-    padding-left: 1.5rem;
+    padding-left: 1.25rem; /* Reduced from 1.5rem */
+    line-height: 1.4; /* Added for better readability */
 }
 
 .rules-list li:before {
@@ -1721,6 +1729,15 @@ html {
     font-weight: bold;
 }
 
+/* Container spacing for consecutive accordions */
+.container {
+    margin-bottom: 0.75rem;
+}
+
+/* For the last container, remove the bottom margin */
+.container:last-child {
+    margin-bottom: 0;
+}
 
 /* CRITERIA */
 .criteria-section {
