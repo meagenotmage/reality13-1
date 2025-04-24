@@ -323,15 +323,16 @@ html {
 .hero-image {
     flex: 0.8; /* Increased flex value to give more space for the image */
     text-align: center;
-    margin-right: 6rem;
-    margin-left: 2rem;
+    margin-right: 4rem;
+    margin-left: 0rem;
 }
 
 .hero-image img {
-    max-width: 150%;
+    max-width: 90%;
     height: auto;
     max-height: 600px; /* Increased from 400px to 500px */
     object-fit: contain;
+    margin-top: 1rem;
 }
 
 .hero-content {
@@ -974,7 +975,7 @@ html {
 
 .timeline-content {
     background: white;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: var(--shadow);
     margin-top: 1rem;
@@ -988,14 +989,15 @@ html {
     border-radius: 30px;
     font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .timeline-content h3 {
     font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     color: var(--primary-dark);
 }
+
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
@@ -1165,6 +1167,7 @@ html {
 
 .theme-bar {
     width: 18%;
+    height: 100%; /* All bars have the same height now */
     background-color: white;
     color: var(--dark);
     position: relative;
@@ -1178,34 +1181,10 @@ html {
     padding: 20px 10px;
     text-align: center;
     overflow: hidden;
+    z-index: 1; /* Standardized z-index for all bars */
 }
 
-.bar-1 {
-    height: 100%;
-    z-index: 1;
-}
-
-.bar-2 {
-    height: 70%;
-    top: 30px;
-    z-index: 2;
-}
-
-.bar-3 {
-    height: 90%;
-    z-index: 1;
-}
-
-.bar-4 {
-    height: 75%;
-    top: 25px;
-    z-index: 2;
-}
-
-.bar-5 {
-    height: 100%;
-    z-index: 1;
-}
+/* Removed individual bar height classes (bar-1, bar-2, etc.) */
 
 .theme-icon {
     font-size: 28px;
@@ -1408,7 +1387,7 @@ html {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .pitch-topic:hover {
@@ -1423,16 +1402,18 @@ html {
     color: #333;
     line-height: 1.5;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+    align-items: flex-start;
+    text-align: justify;
+    padding-left: 1rem;
 }
 
-.pitch-topic h4 i {
+.pitch-topic i {
     margin-right: 1rem;
     color: var(--primary);
     font-size: 1.5rem;
     min-width: 30px;
     text-align: center;
+    margin-top: 2px;
 }
 
 /* Refined Media Queries for better responsiveness */
@@ -1612,7 +1593,7 @@ html {
 .section-title-rules {
     font-size: clamp(1.5rem, 4vw, 2rem);
     color: var(--primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0rem;
     position: relative;
     z-index: 1;
 }
@@ -1627,7 +1608,6 @@ html {
     background: var(--gray);
     border-radius: var(--border-radius);
     overflow: hidden;
-    margin-bottom: 1rem;
     box-shadow: var(--shadow);
     transition: var(--transition);
     background-color: var(--white);

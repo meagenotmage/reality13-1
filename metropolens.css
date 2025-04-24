@@ -1272,7 +1272,6 @@ html {
     background: var(--gray);
     border-radius: var(--border-radius);
     overflow: hidden;
-    margin-bottom: 1rem;
     box-shadow: var(--shadow);
     transition: var(--transition);
     background-color: var(--white);
