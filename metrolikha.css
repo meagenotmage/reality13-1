@@ -1209,16 +1209,16 @@ html {
 .theme-bar:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #333 0%, #000 100%);
+
 }
 
 .theme-bar:hover .theme-icon {
     transform: scale(1.2);
-    color: var(--light);
+    color: var(--dark);
 }
 
 .theme-bar:hover .theme-title {
-    color: #ffffff;
+    color: var(--dark);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 

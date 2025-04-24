@@ -1064,25 +1064,22 @@ html {
     }
 }
 
-#specifications {
-    background: var(--light);
-    padding: 4rem 2rem;
-}
-
 .themes-container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 3rem 3rem;
+    margin: -1rem auto;
+    padding: 1rem;
     background-color: white;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Deeper shadow for elevation */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     position: relative;
+    width: calc(100% - 2rem);
+    margin-bottom: 6rem;
 }
 
 .section-title-themes {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: bold;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     text-align: left;
     color: var(--primary-dark);
 }
@@ -1091,13 +1088,14 @@ html {
     display: none; /* Remove the divider if not needed */
 }
 
-/* Change from vertical bars to card layout */
+/* Modified grid for 2x2 layout on larger screens */
 .theme-bars {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     height: auto;
-    margin: 0;
+    margin: 1rem 0;
+    width: 100%;
 }
 
 .theme-bar {
@@ -1109,9 +1107,9 @@ html {
     flex-direction: row;
     align-items: center;
     height: auto;
-    max-width: 100%;
+    width: 100%;
     position: static;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Reset individual bar heights */
@@ -1127,6 +1125,7 @@ html {
     margin-right: 1.5rem;
     min-width: 40px;
     text-align: center;
+    transition: transform 0.3s ease;
 }
 
 .theme-title {
@@ -1155,6 +1154,143 @@ html {
     text-shadow: none;
 }
 
+/* Responsive adjustments with specific breakpoints for 2x2 layout */
+@media (min-width: 576px) {
+    .theme-bars {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+/* Medium screens - tablets (2 columns) */
+@media (min-width: 768px) {
+    .theme-bars {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Large screens - desktops (maintain 2x2 layout) */
+@media (min-width: 992px) {
+    .theme-bars {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
+    }
+    
+    .themes-container {
+        padding: 1.5rem;
+    }
+}
+
+/* General responsive adjustments */
+@media (max-width: 992px) {
+    .themes-container {
+        margin: -0.75rem auto;
+        border-radius: 12px;
+        padding: 1rem 0.75rem;
+    }
+    
+    .section-title-themes {
+        margin-bottom: 1.5rem;
+    }
+    
+    .theme-bar {
+        padding: 1.25rem;
+    }
+    
+    .theme-icon {
+        font-size: 1.6rem;
+        margin-right: 1.25rem;
+        min-width: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    .themes-container {
+        margin: -0.5rem auto;
+        padding: 0.75rem;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    
+    .section-title-themes {
+        text-align: center;
+        margin-bottom: 1.25rem;
+    }
+    
+    .theme-bars {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .theme-bar {
+        padding: 1.25rem 1rem;
+        border-radius: 8px;
+    }
+    
+    .theme-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        min-width: 30px;
+    }
+    
+    .theme-title {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .themes-container {
+        margin: -0.25rem auto;
+        padding: 0.75rem 0.5rem;
+        width: calc(100% - 1rem);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title-themes {
+        margin-bottom: 1rem;
+    }
+    
+    .theme-bars {
+        gap: 0.75rem;
+        margin: 0.5rem 0;
+    }
+    
+    .theme-bar {
+        padding: 1rem 0.75rem;
+    }
+    
+    .theme-icon {
+        font-size: 1.4rem;
+        margin-right: 0.75rem;
+    }
+    
+    .theme-title {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
+/* For devices that don't support hover */
+@media (hover: none) {
+    .theme-bar:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .theme-bar:hover .theme-icon {
+        transform: none;
+    }
+    
+    .theme-bar:active {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .theme-bar:active .theme-icon {
+        transform: scale(1.05);
+    }
+}
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .theme-bars {
