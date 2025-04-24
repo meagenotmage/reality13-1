@@ -1766,11 +1766,11 @@ footer {
 }
 
 .accordion-item {
-    background-color: var(--white);
+    background-color: var(--light);
     border-radius: var(--border-radius);
     overflow: hidden;
     margin-bottom: 1rem;
-    box-shadow: var(--shadow);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); ;
     transition: var(--transition);
 }
 
